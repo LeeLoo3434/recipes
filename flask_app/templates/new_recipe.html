@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark mb-3">
+        <div class="container">
+            <a class="navbar-brand" href="#">Recipe Share</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/recipes">All Recipes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/recipes/new">Add A Recipe </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% with messages = get_flashed_messages (with_categories = true) %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Add a New Recipe!</h1>
+                <form action="/recipes" method="post">
+                    <input type="hidden" name="user_id" value="{{session.user_id}}">
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" name="name" id="name" class="form-control">
+                                {% if messages %}
+                                    {% for category, message in messages %}
+                                        {% if category == 'name'%}
+                                        <span class="form-text text-danger">{{message}}</span>
+                                        {% endif%}
+                                    {% endfor%}
+                                {% endif%}
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea name="description" id="description" class="form-control"></textarea>
+                                {% if messages %}
+                                    {% for category, message in messages %}
+                                        {% if category == 'description'%}
+                                        <span class="form-text text-danger">{{message}}</span>
+                                        {% endif%}
+                                    {% endfor%}
+                                {% endif%}
+                            </div>
+                            <div class="mb-3">
+                                <label for="instructions" class="form-label">Instructions</label>
+                                <textarea name="instructions" id="instructions" class="form-control"></textarea>
+                                {% if messages %}
+                                    {% for category, message in messages %}
+                                        {% if category == 'instructions'%}
+                                        <span class="form-text text-danger">{{message}}</span>
+                                        {% endif%}
+                                    {% endfor%}
+                                {% endif%}
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="date_made" class="form-label">Date Cooked/Made</label>
+                                <input type="date" name="date_made" id="date_made" class="form-control">
+                                {% if messages %}
+                                    {% for category, message in messages %}
+                                        {% if category == 'date_made'%}
+                                        <span class="form-text text-danger">{{message}}</span>
+                                        {% endif%}
+                                    {% endfor%}
+                                {% endif%}
+                            </div>
+                            <div class="mb-3">
+                                <fieldset>
+                                    <legend class="h6">Under 30 minutes?</legend>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="under_30" id="yes"
+                                            value="1" />
+                                        <label class="form-check-label" for="yes"> Yes </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="under_30" id="no" value="0"
+                                            checked />
+                                        <label class="form-check-label" for="no"> No </label>
+                                        {% if messages %}
+                                    {% for category, message in messages %}
+                                        {% if category == 'under_30'%}
+                                        <span class="form-text text-danger">{{message}}</span>
+                                        {% endif%}
+                                    {% endfor%}
+                                {% endif%}
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <input type="submit" value="Add Recipe" class="btn btn-primary">
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endwith %}
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

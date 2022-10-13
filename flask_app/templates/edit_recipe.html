@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <title>Add a New Recipe</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Edit Recipe!</h1>
+            </div>
+            <div class="col">
+                <a href="/recipes" class=m-3>back to recipes</a> <a href="/users/logout">logout</a>
+            </div>
+        </div>
+        {% with messages = get_flashed_messages(with_categories = true) %}
+
+        <form action="/recipes/{{recipe.id}}/update" method="post">
+            <input type="hidden" name="user_id" value="{{recipe.user_id}}">
+            <input type="hidden" name="id" value="{{recipe.id}}">
+
+            <div class="row">
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name:</label>
+                        <input class="form-control" type="text" name="name" id="name" value="{{recipe.name}}">
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        {% if category =='name' %}
+                        <span class="form-text text-danger">{{message}}</span>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Description:</label>
+                        <input class="form-control" type="text" name="description" id="description" value="{{recipe.description}}">
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        {% if category =='description' %}
+                        <span class="form-text text-danger">{{message}}</span>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Instructions:</label>
+                        <input class="form-control" type="text" name="instructions" id="name" value="{{recipe.instructions}}">
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        {% if category =='instructions' %}
+                        <span class="form-text text-danger">{{message}}</span>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="name"> Date Cooked/Made:</label>
+                        <input type="date" name="date_made" id="name">
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        {% if category =='date_made' %}
+                        <span class="form-text text-danger">{{message}}</span>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <br>
+                    <div class="class">
+                        <p>Under 30?</p>
+                        <input type="radio" name="under_30" id="yes" value="1" {{ "checked" if recipe.under_30 else "" }}>
+                        <label for="yes">Yes</label>
+                        <input type="radio" name="under_30" id="no" value="0" {{ "" if recipe.under_30 else "checked" }}>
+                        <label for="no">No</label>
+                    </div>
+                    <input type="submit" value="Submit">
+                </div>
+            </div>
+        </form>
+        {% endwith %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
